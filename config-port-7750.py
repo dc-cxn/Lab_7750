@@ -4,8 +4,12 @@ import xmltodict
 import logging
 import json
 
+# Enable logging
+logging.basicConfig(level=logging.DEBUG)
+
 # NETCONF Config Template to use
-netconf_template = open("config-template-port.xml").read()
+with open("config-template-port.xml") as f:
+    netconf_template = f.read()
 
 if __name__ == '__main__':
     # Build the XML Configuration to Send
@@ -17,14 +21,17 @@ if __name__ == '__main__':
     print("----------------------")
     print(netconf_payload)
 
-    with manager.connect(host=Lab_7750["address"], 
+    try:
+        with manager.connect(host=Lab_7750["address"], 
                         port=Lab_7750["port"],
                         username=Lab_7750["username"],
                         password=Lab_7750["password"],
                         hostkey_verify=False) as m:
 
-        # Send NETCONF <edit-config>
-        netconf_reply = m.edit_config(netconf_payload, target="running")
+            # Send NETCONF <edit-config>
+            netconf_reply = m.edit_config(target="candidate", config=netconf_payload)
 
-        # Print the NETCONF Reply
-        print(netconf_reply)
+             # Print the NETCONF Reply
+            print(netconf_reply)
+    except Exception as e:
+        print("An error occurred: {}".format(e))
