@@ -5,7 +5,7 @@ import logging
 import json
 
 # Enable logging
-logging.basicConfig(level=logging.DEBUG)
+#logging.basicConfig(level=logging.DEBUG)
 
 # NETCONF Config Template to use
 with open("config-template-port.xml") as f:
@@ -30,6 +30,8 @@ if __name__ == '__main__':
 
             # Send NETCONF <edit-config>
             netconf_reply = m.edit_config(target="candidate", config=netconf_payload)
+            m.validate()
+            m.commit()
 
              # Print the NETCONF Reply
             print(netconf_reply)
