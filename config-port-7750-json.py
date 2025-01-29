@@ -29,11 +29,11 @@ device = {
 #  </configure>
 #</config>
 #"""
-config_payload_json = """
-{
+
+config_payload_json = {
 	"config": {
-        "xmlns": "urn:nokia.com:sros:ns:yang:sr:conf",
 		"configure": {
+        "@xmlns": "urn:nokia.com:sros:ns:yang:sr:conf",
             "port": {
                 "port-id": "1/1/c4/1",
                 "description": "config-by-netconf",
@@ -44,7 +44,7 @@ config_payload_json = """
 		}
 	}
 }
-"""
+
 
 #def main():
 #    # Build the XML Configuration to Send
@@ -65,8 +65,7 @@ def main():
     try:
          with manager.connect(**device) as m:
               print("Connected to {}".format(Lab_7750["address"]))
-              config_dict = json.loads(config_payload_json)
-              config_xml = xmltodict.unparse(config_dict)
+              config_xml = xmltodict.unparse(config_payload_json)
               print(config_xml)
               response = m.edit_config(target="candidate", config=config_xml)
               print(response)

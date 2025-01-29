@@ -25,8 +25,8 @@ print(rtr)
 #        print(x)
 #    print(x)
 
-#schema = conn.get_schema("nokia-types-port")
-#print(schema)
+schema = conn.get_schema("nokia-types-port")
+print(schema)
 
 #result = conn.get_config('running')
 #print(result.xml)

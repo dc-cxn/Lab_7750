@@ -39,6 +39,7 @@ def main():
               print(config_payload)
               response = m.edit_config(target="candidate", config=config_payload)
               print(response)
+              m.validate()
               m.commit()
                         
               print("Configuration committed.")
